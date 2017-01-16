@@ -8,7 +8,7 @@ except:
     import struct
 
 dst = 1
-
+NTP_DELTA = 3155673600
 host = "pool.ntp.org"
 
 def time(NTP_DELTA):
@@ -30,10 +30,9 @@ def time(NTP_DELTA):
 # (date(2000, 1, 1) - date(1900, 1, 1)).days * 24*60*60
 # To use DST, call function again as settime(dst)
 def settime( dst = 0 ):
+    global NTP_DELTA
     if dst == 1:
-        NTP_DELTA = 3155670000
-    else:
-        NTP_DELTA = 3155673600
+        NTP_DELTA = NTP_DELTA - 3600
     t = time(NTP_DELTA)
     import machine
     import utime
